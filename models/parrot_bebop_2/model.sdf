@@ -6,6 +6,7 @@
 
     <!-- Main link -->
     <link name="body">
+      <!-- Inertial properties of the model -->
       <inertial>
         <mass>0.503</mass> <!-- kg -->
         <inertia> <!-- kg.m^2 -->
@@ -18,6 +19,8 @@
         </inertia>
         <pose>0 0 0 0 0 0</pose>
       </inertial>
+
+      <!-- Collision properties of the model -->
       <collision name="collision">
         <pose>-0.00424 0.00014 -0.00595 0 0 0</pose>
         <geometry>
@@ -48,6 +51,8 @@
           </contact>
         </surface>
       </collision>
+
+      <!-- Visual representation of the model -->
       <visual name="hull">
         <geometry>
           <mesh>
@@ -55,6 +60,8 @@
           </mesh>
         </geometry>
       </visual>
+
+      <!-- Visual representation of the rear right propeller -->
       <visual name="propeller_rr">
         <pose>-0.09035 -0.11423 -0.00501 0 0 0</pose>
         <geometry>
@@ -63,6 +70,8 @@
           </mesh>
         </geometry>
       </visual>
+
+      <!-- Visual representation of the rear left propeller -->
       <visual name="propeller_rl">
         <pose>-0.09035 0.11452 -0.00501 0 0 0</pose>
         <geometry>
@@ -71,6 +80,8 @@
           </mesh>
         </geometry>
       </visual>
+
+      <!-- Visual representation of the front right propeller -->
       <visual name="propeller_fr">
         <pose>0.08456 -0.11435 -0.00501 0 0 0</pose>
         <geometry>
@@ -79,6 +90,8 @@
           </mesh>
         </geometry>
       </visual>
+
+      <!-- Visual representation of the front left propeller -->
       <visual name="propeller_fl">
         <pose>0.08456 0.11463 -0.00501 0 0 0</pose>
         <geometry>
@@ -87,6 +100,15 @@
           </mesh>
         </geometry>
       </visual>
+
+      <!-- Sensor for the IMU -->
+      <!-- <sensor name="imu_sensor" type="imu">
+        <always_on>1</always_on>
+        <update_rate>1</update_rate>
+        <visualize>true</visualize>
+        <topic>imu</topic> -->
+    </sensor>
+
     </link>
   </model>
 </sdf>
