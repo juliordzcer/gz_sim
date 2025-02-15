@@ -1,0 +1,131 @@
+<?xml version="1.0" ?>
+<sdf version="1.8">
+    <world name="world_demo">
+        <!-- Configuración de la física del mundo -->
+        <physics type="lms">
+            <!-- Tamaño máximo del paso de simulación -->
+            <max_step_size>0.001</max_step_size>
+            <!-- Factor de tiempo real (1 significa tiempo real) -->
+            <real_time_factor>1</real_time_factor>
+        </physics>
+
+        <!-- Plugin de física de Ignition Gazebo -->
+        <plugin 
+        filename="libignition-gazebo-physics-system.so"
+        name="ignition::gazebo::systems::Physics">
+        </plugin>
+
+        <!-- Plugin para comandos de usuario en Ignition Gazebo -->
+        <plugin
+            filename="libignition-gazebo-user-commands-system.so"
+            name="ignition::gazebo::systems::UserCommands">
+        </plugin>
+
+        <!-- Plugin para la transmisión de la escena en Ignition Gazebo -->
+        <plugin
+            filename="libignition-gazebo-scene-broadcaster-system.so"
+            name="ignition::gazebo::systems::SceneBroadcaster">
+        </plugin>
+
+        <!-- Configuración de la interfaz gráfica -->
+        <gui fullscreen="0">
+            <!-- Plugin para la vista 3D de la simulación -->
+            <plugin filename="GzScene3D" name="3D View">
+                <ignition-gui>
+                    <!-- Título de la ventana de la vista 3D -->
+                    <title>3D View</title>
+                    <!-- Propiedad para ocultar la barra de título -->
+                    <property type="bool" key="showTitleBar">false</property>
+                    <!-- Estado de la ventana (docked significa acoplada) -->
+                    <property type="string" key="state">docked</property>
+                </ignition-gui>
+
+                <!-- Configuración del motor gráfico y la escena -->
+                <!-- Motor gráfico utilizado (ogre2) -->
+                <engine>ogre2</engine>
+                <scene>
+                    <!-- Luz ambiental de la escena -->
+                    <ambient_light>0.1 0.1 0.1 1</ambient_light>
+                    <!-- Color de fondo de la escena -->
+                    <background_color>0.7 0.7 0.7 1</background_color>
+                </scene>
+            </plugin>
+
+            <!-- Plugin para el control del mundo -->
+            <plugin filename="WorldControl" name="World Control">
+                <ignition-gui>
+                    <!-- Título de la ventana de control del mundo -->
+                    <title>World Control</title>
+                    <!-- Propiedad para ocultar la barra de título -->
+                    <property type="bool" key="showTitleBar">false</property>
+                    <!-- Propiedad para desactivar el redimensionamiento -->
+                    <property type="bool" key="reziable">false</property>
+                    <!-- Altura de la ventana -->
+                    <property type="double" key="height">72</property>
+                    <!-- Ancho de la ventana -->
+                    <property type="double" key="width">121</property>
+                    <!-- Profundidad de la ventana (z-index) -->
+                    <property type="double" key="z">1</property>
+                    <!-- Estado de la ventana (floating significa flotante) -->
+                    <property type="string" key="state">floating</property>
+                    <!-- Anclaje de la ventana al objetivo "3D View" -->
+                    <anchor target="3D View">
+                        <!-- Línea de anclaje a la derecha -->
+                        <line own="left" target="left"/>
+                        <!-- Línea de anclaje en la parte inferior -->
+                        <line own="bottom" target="bottom"/>
+                    </anchor>
+                </ignition-gui>
+
+                <!-- Botón de play/pause -->
+                <play_pause>true</play_pause>
+                <!-- Botón de paso a paso -->
+                <step>true</step>
+                <!-- Iniciar en pausa -->
+                <start_paused>true</start_paused>
+                <!-- Servicio de control del mundo -->
+                <service>/world/world_demo/control</service>
+                <!-- Tópico de estadísticas del mundo -->
+                <stats_topic>/world/world_demo/stats</stats_topic>
+            </plugin>
+
+            <!-- Plugin para las estadísticas del mundo -->
+            <plugin filename="WorldStats" name="World Stats">
+                <ignition-gui>
+                    <!-- Título de la ventana de estadísticas del mundo -->
+                    <title>World Stats</title>
+                    <!-- Propiedad para ocultar la barra de título -->
+                    <property type="bool" key="showTitleBar">false</property>
+                    <!-- Propiedad para desactivar el redimensionamiento -->
+                    <property type="bool" key="resizable">false</property>
+                    <!-- Altura de la ventana -->
+                    <property type="double" key="height">110</property>
+                    <!-- Ancho de la ventana -->
+                    <property type="double" key="width">290</property>
+                    <!-- Profundidad de la ventana (z-index) -->
+                    <property type="double" key="z">1</property>
+                    <!-- Estado de la ventana (floating significa flotante) -->
+                    <property type="string" key="state">floating</property>
+                    <!-- Anclaje de la ventana al objetivo "3D View" -->
+                    <anchor target="3D View">
+                        <!-- Línea de anclaje a la derecha -->
+                        <line own="right" target="right"/>
+                        <!-- Línea de anclaje en la parte inferior -->
+                        <line own="bottom" target="bottom"/>
+                    </anchor>
+                </ignition-gui>
+
+                <!-- Mostrar tiempo de simulación -->
+                <sim_time>true</sim_time>
+                <!-- Mostrar tiempo real -->
+                <real_time>true</real_time>
+                <!-- Mostrar factor de tiempo real -->
+                <real_time_factor>true</real_time_factor>
+                <!-- Mostrar número de iteraciones -->
+                <interations>true</interations>
+                <!-- Tópico de estadísticas del mundo -->
+                <topic>/world/world_demo/stats</topic>
+            </plugin>
+        </gui>
+    </world>
+</sdf>
