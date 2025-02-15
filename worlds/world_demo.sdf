@@ -126,6 +126,45 @@
                 <!-- Tópico de estadísticas del mundo -->
                 <topic>/world/world_demo/stats</topic>
             </plugin>
+
+            <!-- Plugin para el árbol de entidades -->
+            <plugin filename="EntityTree" name="Entity tree">
+            </plugin>
         </gui>
+
+        <!-- Luz direccional llamada "sun" -->
+        <light type="directional" name="sun">
+            <!-- Habilitar sombras proyectadas -->
+            <cast_shadows>true</cast_shadows>
+            <!-- Posición de la luz -->
+            <pose>0 0 10 0 0 0</pose>
+            <!-- Color difuso de la luz -->
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+            <!-- Color especular de la luz -->
+            <specular>0.2 0.2 0.2 1</specular>
+            <attenuation>
+                <!-- Rango de atenuación -->
+                <range>1000</range>
+                <!-- Atenuación constante -->
+                <constant>0.9</constant>
+                <!-- Atenuación lineal -->
+                <linear>0.01</linear>
+                <!-- Atenuación cuadrática -->
+                <quadratic>0.001</quadratic>
+            </attenuation>
+            <!-- Dirección de la luz -->
+            <direction>-0.5 0.1 -0.9</direction>
+        </light>
+
+        <!-- <include>
+        <uri>
+        https://fuel.gazebosim.org/1.0/OpenRobotics/models/Parrot Bebop 2
+        </uri>
+        </include> -->
+
+        <include>
+            <uri>model://parrot_bebop_2</uri>
+        </include>
+
     </world>
 </sdf>
