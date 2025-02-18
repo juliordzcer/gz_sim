@@ -102,12 +102,12 @@
       </visual>
 
       <!-- Sensor for the IMU -->
-      <!-- <sensor name="imu_sensor" type="imu">
+      <sensor name="imu_sensor" type="imu">
         <always_on>1</always_on>
         <update_rate>1</update_rate>
         <visualize>true</visualize>
-        <topic>imu</topic> -->
-    </sensor>
+        <topic>imu</topic>
+      </sensor>
 
     </link>
   </model>

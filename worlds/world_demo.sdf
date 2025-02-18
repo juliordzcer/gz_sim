@@ -11,8 +11,8 @@
 
         <!-- Plugin de física de Ignition Gazebo -->
         <plugin 
-        filename="libignition-gazebo-physics-system.so"
-        name="ignition::gazebo::systems::Physics">
+            filename="libignition-gazebo-physics-system.so"
+            name="ignition::gazebo::systems::Physics">
         </plugin>
 
         <!-- Plugin para comandos de usuario en Ignition Gazebo -->
@@ -25,6 +25,17 @@
         <plugin
             filename="libignition-gazebo-scene-broadcaster-system.so"
             name="ignition::gazebo::systems::SceneBroadcaster">
+        </plugin>
+
+        <!-- Plugin para los sensores IMU -->
+        <plugin 
+            filename="libignition-gazebo-imu-system.so" 
+            name="ignition::gazebo::systems::Imu">
+        </plugin>
+
+        <plugin 
+            filename="gz-sim-contact-system"
+            name="gz::sim::systems::Contact">
         </plugin>
 
         <!-- Configuración de la interfaz gráfica -->
@@ -156,15 +167,98 @@
             <direction>-0.5 0.1 -0.9</direction>
         </light>
 
-        <!-- <include>
-        <uri>
-        https://fuel.gazebosim.org/1.0/OpenRobotics/models/Parrot Bebop 2
-        </uri>
-        </include> -->
+        <!-- Agregar un suelo (ground plane) -->
+        <model name="ground_plane">
+            <static>true</static>
+            <link name="link">
+                <collision name="collision">
+                    <geometry>
+                        <plane>
+                            <normal>0 0 1</normal>
+                            <size>100 100</size>
+                        </plane>
+                    </geometry>
+                </collision>
+                <visual name="visual">
+                    <geometry>
+                        <plane>
+                            <normal>0 0 1</normal>
+                            <size>100 100</size>
+                        </plane>
+                    </geometry>
+                    <material>
+                        <ambient>0.8 0.8 0.8 1</ambient>
+                        <diffuse>0.8 0.8 0.8 1</diffuse>
+                        <specular>0.8 0.8 0.8 1</specular>
+                    </material>
+                </visual>
+            </link>
+        </model>
 
-        <include>
+
+        <model name='wall'>
+            <static>true</static>
+            <pose>5 0 0 0 0 0</pose><!--pose relative to the world-->
+            <link name='box'>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                            <!-- Grosor, Ancho, alto -->
+                            <size>0.5 10.0 5.0</size>
+                        </box>
+                    </geometry>
+                    <!--let's add color to our link-->
+                    <material>
+                        <ambient>0.0 0.0 1.0 1</ambient>
+                        <diffuse>0.0 0.0 1.0 1</diffuse>
+                        <specular>0.0 0.0 1.0 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                            <size>0.5 10.0 5.0</size>
+                        </box>
+                    </geometry>
+                </collision>
+                <sensor name='sensor_contact' type='contact'>
+                    <contact>
+                        <collision>collision</collision>
+                    </contact>
+                </sensor>
+            </link>
+            <plugin 
+                filename="gz-sim-touchplugin-system"
+                name="gz::sim::systems::TouchPlugin">
+            <target>vehicle_blue</target>
+            <namespace>wall</namespace>
+            <time>0.001</time>
+            <enabled>true</enabled>
+        </plugin>
+
+        </model>
+
+
+
+        <!-- Incluir el modelo del Parrot Bebop 2 -->
+        <!-- <include>
             <uri>model://parrot_bebop_2</uri>
         </include>
+ -->
+        <!-- Incluir el contenido del archivo basic.world -->
 
+        <!-- <include>
+            <uri>file:///home/jr/gz_sim/worlds/basic.world</uri>
+        </include> -->
+
+        <plugin filename="gz-sim-triggered-publisher-system"
+                name="gz::sim::systems::TriggeredPublisher">
+            <input type="gz.msgs.Boolean" topic="/wall/touched">
+                <match>data: true</match>
+            </input>
+            <output type="gz.msgs.Twist" topic="/cmd_vel">
+                linear: {x: 0.0}, angular: {z: 0.0}
+            </output>
+        </plugin>
     </world>
 </sdf>
