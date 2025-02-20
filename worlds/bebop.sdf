@@ -36,7 +36,7 @@ You can use the velocity controller and command linear velocity and yaw angular 
 -->
 
 <sdf version="1.6">
-  <world name="multicopter">
+  <world name="quadrotor">
     <physics name="1ms" type="ignored">
       <max_step_size>0.001</max_step_size>
       <real_time_factor>1.0</real_time_factor>
@@ -102,14 +102,14 @@ You can use the velocity controller and command linear velocity and yaw angular 
 
     <include>
       <uri>
-        https://fuel.gazebosim.org/1.0/OpenRobotics/models/X3 UAV/4
+        model://parrot_bebop_2
       </uri>
       <plugin
         filename="gz-sim-multicopter-motor-model-system"
         name="gz::sim::systems::MulticopterMotorModel">
-        <robotNamespace>X3</robotNamespace>
-        <jointName>X3/rotor_0_joint</jointName>
-        <linkName>X3/rotor_0</linkName>
+        <robotNamespace>parrot_bebop_2</robotNamespace>
+        <jointName>parrot_bebop_2/rotor_0_joint</jointName>
+        <linkName>parrot_bebop_2/rotor_0</linkName>
         <turningDirection>ccw</turningDirection>
         <timeConstantUp>0.0125</timeConstantUp>
         <timeConstantDown>0.025</timeConstantDown>
@@ -127,9 +127,9 @@ You can use the velocity controller and command linear velocity and yaw angular 
       <plugin
         filename="gz-sim-multicopter-motor-model-system"
         name="gz::sim::systems::MulticopterMotorModel">
-        <robotNamespace>X3</robotNamespace>
-        <jointName>X3/rotor_1_joint</jointName>
-        <linkName>X3/rotor_1</linkName>
+        <robotNamespace>parrot_bebop_2</robotNamespace>
+        <jointName>parrot_bebop_2/rotor_1_joint</jointName>
+        <linkName>parrot_bebop_2/rotor_1</linkName>
         <turningDirection>ccw</turningDirection>
         <timeConstantUp>0.0125</timeConstantUp>
         <timeConstantDown>0.025</timeConstantDown>
@@ -147,9 +147,9 @@ You can use the velocity controller and command linear velocity and yaw angular 
       <plugin
         filename="gz-sim-multicopter-motor-model-system"
         name="gz::sim::systems::MulticopterMotorModel">
-        <robotNamespace>X3</robotNamespace>
-        <jointName>X3/rotor_2_joint</jointName>
-        <linkName>X3/rotor_2</linkName>
+        <robotNamespace>parrot_bebop_2</robotNamespace>
+        <jointName>parrot_bebop_2/rotor_2_joint</jointName>
+        <linkName>parrot_bebop_2/rotor_2</linkName>
         <turningDirection>cw</turningDirection>
         <timeConstantUp>0.0125</timeConstantUp>
         <timeConstantDown>0.025</timeConstantDown>
@@ -167,9 +167,9 @@ You can use the velocity controller and command linear velocity and yaw angular 
       <plugin
         filename="gz-sim-multicopter-motor-model-system"
         name="gz::sim::systems::MulticopterMotorModel">
-        <robotNamespace>X3</robotNamespace>
-        <jointName>X3/rotor_3_joint</jointName>
-        <linkName>X3/rotor_3</linkName>
+        <robotNamespace>parrot_bebop_2</robotNamespace>
+        <jointName>parrot_bebop_2/rotor_3_joint</jointName>
+        <linkName>parrot_bebop_2/rotor_3</linkName>
         <turningDirection>cw</turningDirection>
         <timeConstantUp>0.0125</timeConstantUp>
         <timeConstantDown>0.025</timeConstantDown>
@@ -187,10 +187,10 @@ You can use the velocity controller and command linear velocity and yaw angular 
       <plugin
         filename="gz-sim-multicopter-control-system"
         name="gz::sim::systems::MulticopterVelocityControl">
-        <robotNamespace>X3</robotNamespace>
+        <robotNamespace>parrot_bebop_2</robotNamespace>
         <commandSubTopic>gazebo/command/twist</commandSubTopic>
         <enableSubTopic>enable</enableSubTopic>
-        <comLinkName>X3/base_link</comLinkName>
+        <comLinkName>parrot_bebop_2/base_link</comLinkName>
         <velocityGain>2.7 2.7 2.7</velocityGain>
         <attitudeGain>2 3 0.15</attitudeGain>
         <angularRateGain>0.4 0.52 0.18</angularRateGain>
@@ -198,25 +198,25 @@ You can use the velocity controller and command linear velocity and yaw angular 
 
         <rotorConfiguration>
           <rotor>
-            <jointName>X3/rotor_0_joint</jointName>
+            <jointName>parrot_bebop_2/rotor_0_joint</jointName>
             <forceConstant>8.54858e-06</forceConstant>
             <momentConstant>0.016</momentConstant>
             <direction>1</direction>
           </rotor>
           <rotor>
-            <jointName>X3/rotor_1_joint</jointName>
+            <jointName>parrot_bebop_2/rotor_1_joint</jointName>
             <forceConstant>8.54858e-06</forceConstant>
             <momentConstant>0.016</momentConstant>
             <direction>1</direction>
           </rotor>
           <rotor>
-            <jointName>X3/rotor_2_joint</jointName>
+            <jointName>parrot_bebop_2/rotor_2_joint</jointName>
             <forceConstant>8.54858e-06</forceConstant>
             <momentConstant>0.016</momentConstant>
             <direction>-1</direction>
           </rotor>
           <rotor>
-            <jointName>X3/rotor_3_joint</jointName>
+            <jointName>parrot_bebop_2/rotor_3_joint</jointName>
             <forceConstant>8.54858e-06</forceConstant>
             <momentConstant>0.016</momentConstant>
             <direction>-1</direction>
