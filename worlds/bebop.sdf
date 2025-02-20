@@ -202,24 +202,32 @@ You can use the velocity controller and command linear velocity and yaw angular 
             <forceConstant>8.54858e-06</forceConstant>
             <momentConstant>0.016</momentConstant>
             <direction>1</direction>
+            <angle>-0.9341</angle>
+            <arm_length>0.1424</arm_length>
           </rotor>
           <rotor>
             <jointName>parrot_bebop_2/rotor_1_joint</jointName>
             <forceConstant>8.54858e-06</forceConstant>
             <momentConstant>0.016</momentConstant>
             <direction>1</direction>
+            <angle>2.2388</angle>
+            <arm_length>0.1424</arm_length>
           </rotor>
           <rotor>
             <jointName>parrot_bebop_2/rotor_2_joint</jointName>
             <forceConstant>8.54858e-06</forceConstant>
             <momentConstant>0.016</momentConstant>
             <direction>-1</direction>
+            <angle>0.9352</angle>
+            <arm_length>0.1424</arm_length>
           </rotor>
           <rotor>
             <jointName>parrot_bebop_2/rotor_3_joint</jointName>
             <forceConstant>8.54858e-06</forceConstant>
             <momentConstant>0.016</momentConstant>
             <direction>-1</direction>
+            <angle>-2.2400</angle>
+            <arm_length>0.1424</arm_length>
           </rotor>
         </rotorConfiguration>
       </plugin>
