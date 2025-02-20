@@ -134,7 +134,7 @@ You can use the velocity controller and command linear velocity and yaw angular 
         <robotNamespace>parrot_bebop_2</robotNamespace>
         <jointName>propeller_rl_joint</jointName>
         <linkName>propeller_rl</linkName>
-        <turningDirection>ccw</turningDirection>
+        <turningDirection>cw</turningDirection>
         <timeConstantUp>0.0125</timeConstantUp>
         <timeConstantDown>0.025</timeConstantDown>
         <maxRotVelocity>800.0</maxRotVelocity>
@@ -144,7 +144,7 @@ You can use the velocity controller and command linear velocity and yaw angular 
         <actuator_number>1</actuator_number>
         <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
         <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
-        <motorSpeedPubTopic>motor_speed/1</motorSpeedPubTopic>
+        <motorSpeedPubTopic>motor_speed/2</motorSpeedPubTopic>
         <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
         <motorType>velocity</motorType>
       </plugin>
@@ -154,7 +154,7 @@ You can use the velocity controller and command linear velocity and yaw angular 
         <robotNamespace>parrot_bebop_2</robotNamespace>
         <jointName>propeller_fr_joint</jointName>
         <linkName>propeller_fr</linkName>
-        <turningDirection>cw</turningDirection>
+        <turningDirection>ccw</turningDirection>
         <timeConstantUp>0.0125</timeConstantUp>
         <timeConstantDown>0.025</timeConstantDown>
         <maxRotVelocity>800.0</maxRotVelocity>
@@ -164,7 +164,7 @@ You can use the velocity controller and command linear velocity and yaw angular 
         <actuator_number>2</actuator_number>
         <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
         <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
-        <motorSpeedPubTopic>motor_speed/2</motorSpeedPubTopic>
+        <motorSpeedPubTopic>motor_speed/1</motorSpeedPubTopic>
         <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
         <motorType>velocity</motorType>
       </plugin>
@@ -196,11 +196,21 @@ You can use the velocity controller and command linear velocity and yaw angular 
         <enableSubTopic>enable</enableSubTopic>
         <comLinkName>body</comLinkName>
         <!-- pendiente -->
+
+        <!-- # Lee position controller parameters
+        position_gain: {x: 3, y: 3, z: 2}
+        velocity_gain: {x: 2, y: 2, z: 2}
+        attitude_gain: {x: 0.15, y: 0.15, z: 0.15}
+        angular_rate_gain: {x: 0.03, y: 0.03, z: 0.05} -->
+
+
         <velocityGain>2.7 2.7 2.7</velocityGain>
         <attitudeGain>2 3 0.15</attitudeGain>
         <angularRateGain>0.4 0.52 0.18</angularRateGain>
         <maximumLinearAcceleration>2 2 2</maximumLinearAcceleration>
         <!-- pendiente -->
+
+
         <rotorConfiguration>
           <rotor>
             <jointName>propeller_rr_joint</jointName>
@@ -212,19 +222,19 @@ You can use the velocity controller and command linear velocity and yaw angular 
             <jointName>propeller_rl_joint</jointName>
             <forceConstant>8.54858e-06</forceConstant>
             <momentConstant>0.016</momentConstant>
+            <direction>-1</direction>
+          </rotor>
+          <rotor>
+            <jointName>propeller_fr_joint</jointName>
+            <forceConstant>8.54858e-06</forceConstant>
+            <momentConstant>0.016</momentConstant>
+            <direction>-1</direction>
+          </rotor>
+          <rotor>
+            <jointName>propeller_fl_joint</jointName>
+            <forceConstant>8.54858e-06</forceConstant>
+            <momentConstant>0.016</momentConstant>
             <direction>1</direction>
-          </rotor>
-          <rotor>
-            <jointName>propeller_fr_joint</jointName> <!-- Cambiado de propeller_fr a propeller_fr_joint -->
-            <forceConstant>8.54858e-06</forceConstant>
-            <momentConstant>0.016</momentConstant>
-            <direction>-1</direction>
-          </rotor>
-          <rotor>
-            <jointName>propeller_fl_joint</jointName> <!-- Cambiado de propeller_fl a propeller_fl_joint -->
-            <forceConstant>8.54858e-06</forceConstant>
-            <momentConstant>0.016</momentConstant>
-            <direction>-1</direction>
           </rotor>
         </rotorConfiguration>
       </plugin>
