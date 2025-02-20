@@ -1,0 +1,495 @@
+<?xml version="1.0" ?>
+<sdf version="1.10">
+    <!-- Define la versión del formato SDF (Simulation Description Format) -->
+    <world name="car_world">
+        <!-- Define un mundo llamado "car_world" -->
+        <physics name="1ms" type="ignored">
+            <!-- Configura las propiedades físicas del mundo -->
+            <max_step_size>0.001</max_step_size>
+            <!-- Tamaño máximo del paso de simulación -->
+            <real_time_factor>1.0</real_time_factor>
+            <!-- Factor de tiempo real (1.0 significa tiempo real) -->
+        </physics>
+        <plugin
+            filename="gz-sim-physics-system"
+            name="gz::sim::systems::Physics">
+        </plugin>
+        <!-- Plugin para el sistema de física -->
+        <plugin
+            filename="gz-sim-user-commands-system"
+            name="gz::sim::systems::UserCommands">
+        </plugin>
+        <!-- Plugin para comandos de usuario -->
+        <plugin
+            filename="gz-sim-scene-broadcaster-system"
+            name="gz::sim::systems::SceneBroadcaster">
+        </plugin>
+        <!-- Plugin para la difusión de la escena -->
+
+        <light type="directional" name="sun">
+            <!-- Define una luz direccional llamada "sun" -->
+            <cast_shadows>true</cast_shadows>
+            <!-- Habilita la proyección de sombras -->
+            <pose>0 0 10 0 0 0</pose>
+            <!-- Posición y orientación de la luz -->
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+            <!-- Color difuso de la luz -->
+            <specular>0.2 0.2 0.2 1</specular>
+            <!-- Color especular de la luz -->
+            <attenuation>
+                <range>1000</range>
+                <!-- Rango de atenuación de la luz -->
+                <constant>0.9</constant>
+                <!-- Atenuación constante -->
+                <linear>0.01</linear>
+                <!-- Atenuación lineal -->
+                <quadratic>0.001</quadratic>
+                <!-- Atenuación cuadrática -->
+            </attenuation>
+            <direction>-0.5 0.1 -0.9</direction>
+            <!-- Dirección de la luz -->
+        </light>
+
+        <!-- Plugin para los sensores IMU -->
+        <plugin 
+            filename="libignition-gazebo-imu-system.so" 
+            name="ignition::gazebo::systems::Imu">
+        </plugin>
+
+        <plugin 
+            filename="gz-sim-contact-system"
+            name="gz::sim::systems::Contact">
+        </plugin>
+
+        <!-- Configuración de la interfaz gráfica -->
+        <gui fullscreen="0">
+            <!-- Plugin para la vista 3D de la simulación -->
+            <plugin filename="GzScene3D" name="3D View">
+                <ignition-gui>
+                    <!-- Título de la ventana de la vista 3D -->
+                    <title>3D View</title>
+                    <!-- Propiedad para ocultar la barra de título -->
+                    <property type="bool" key="showTitleBar">false</property>
+                    <!-- Estado de la ventana (docked significa acoplada) -->
+                    <property type="string" key="state">docked</property>
+                </ignition-gui>
+
+                <!-- Configuración del motor gráfico y la escena -->
+                <!-- Motor gráfico utilizado (ogre2) -->
+                <engine>ogre2</engine>
+                <scene>
+                    <!-- Luz ambiental de la escena -->
+                    <ambient_light>0.1 0.1 0.1 1</ambient_light>
+                    <!-- Color de fondo de la escena -->
+                    <background_color>0.7 0.7 0.7 1</background_color>
+                </scene>
+            </plugin>
+
+            <!-- Plugin para el control del mundo -->
+            <plugin filename="WorldControl" name="World Control">
+                <ignition-gui>
+                    <!-- Título de la ventana de control del mundo -->
+                    <title>World Control</title>
+                    <!-- Propiedad para ocultar la barra de título -->
+                    <property type="bool" key="showTitleBar">false</property>
+                    <!-- Propiedad para desactivar el redimensionamiento -->
+                    <property type="bool" key="reziable">false</property>
+                    <!-- Altura de la ventana -->
+                    <property type="double" key="height">72</property>
+                    <!-- Ancho de la ventana -->
+                    <property type="double" key="width">121</property>
+                    <!-- Profundidad de la ventana (z-index) -->
+                    <property type="double" key="z">1</property>
+                    <!-- Estado de la ventana (floating significa flotante) -->
+                    <property type="string" key="state">floating</property>
+                    <!-- Anclaje de la ventana al objetivo "3D View" -->
+                    <anchor target="3D View">
+                        <!-- Línea de anclaje a la derecha -->
+                        <line own="left" target="left"/>
+                        <!-- Línea de anclaje en la parte inferior -->
+                        <line own="bottom" target="bottom"/>
+                    </anchor>
+                </ignition-gui>
+
+                <!-- Botón de play/pause -->
+                <play_pause>true</play_pause>
+                <!-- Botón de paso a paso -->
+                <step>true</step>
+                <!-- Iniciar en pausa -->
+                <start_paused>true</start_paused>
+                <!-- Servicio de control del mundo -->
+                <service>/world/world_demo/control</service>
+                <!-- Tópico de estadísticas del mundo -->
+                <stats_topic>/world/world_demo/stats</stats_topic>
+            </plugin>
+
+            <!-- Plugin para las estadísticas del mundo -->
+            <plugin filename="WorldStats" name="World Stats">
+                <ignition-gui>
+                    <!-- Título de la ventana de estadísticas del mundo -->
+                    <title>World Stats</title>
+                    <!-- Propiedad para ocultar la barra de título -->
+                    <property type="bool" key="showTitleBar">false</property>
+                    <!-- Propiedad para desactivar el redimensionamiento -->
+                    <property type="bool" key="resizable">false</property>
+                    <!-- Altura de la ventana -->
+                    <property type="double" key="height">110</property>
+                    <!-- Ancho de la ventana -->
+                    <property type="double" key="width">290</property>
+                    <!-- Profundidad de la ventana (z-index) -->
+                    <property type="double" key="z">1</property>
+                    <!-- Estado de la ventana (floating significa flotante) -->
+                    <property type="string" key="state">floating</property>
+                    <!-- Anclaje de la ventana al objetivo "3D View" -->
+                    <anchor target="3D View">
+                        <!-- Línea de anclaje a la derecha -->
+                        <line own="right" target="right"/>
+                        <!-- Línea de anclaje en la parte inferior -->
+                        <line own="bottom" target="bottom"/>
+                    </anchor>
+                </ignition-gui>
+
+                <!-- Mostrar tiempo de simulación -->
+                <sim_time>true</sim_time>
+                <!-- Mostrar tiempo real -->
+                <real_time>true</real_time>
+                <!-- Mostrar factor de tiempo real -->
+                <real_time_factor>true</real_time_factor>
+                <!-- Mostrar número de iteraciones -->
+                <interations>true</interations>
+                <!-- Tópico de estadísticas del mundo -->
+                <topic>/world/world_demo/stats</topic>
+            </plugin>
+
+            <!-- Plugin para el árbol de entidades -->
+            <plugin filename="EntityTree" name="Entity tree">
+            </plugin>
+
+            <plugin filename="keyPublisher" name="Key Publisher">
+            </plugin>
+
+        </gui>
+
+
+
+        <model name="ground_plane">
+            <!-- Define un modelo llamado "ground_plane" -->
+            <static>true</static>
+            <!-- Indica que el modelo es estático -->
+            <link name="link">
+                <!-- Define un enlace llamado "link" -->
+                <collision name="collision">
+                    <!-- Define una colisión llamada "collision" -->
+                    <geometry>
+                        <plane>
+                            <!-- Define la geometría como un plano -->
+                            <normal>0 0 1</normal>
+                            <!-- Normal del plano -->
+                        </plane>
+                    </geometry>
+                </collision>
+                <visual name="visual">
+                    <!-- Define una visualización llamada "visual" -->
+                    <geometry>
+                        <plane>
+                            <!-- Define la geometría como un plano -->
+                            <normal>0 0 1</normal>
+                            <!-- Normal del plano -->
+                            <size>100 100</size>
+                            <!-- Tamaño del plano -->
+                        </plane>
+                    </geometry>
+                    <material>
+                        <!-- Define el material del plano -->
+                        <ambient>0.8 0.8 0.8 1</ambient>
+                        <!-- Color ambiental -->
+                        <diffuse>0.8 0.8 0.8 1</diffuse>
+                        <!-- Color difuso -->
+                        <specular>0.8 0.8 0.8 1</specular>
+                        <!-- Color especular -->
+                    </material>
+                </visual>
+            </link>
+        </model>
+
+        <model name='vehicle_blue' canonical_link='chassis'>
+            <!-- Define un modelo llamado "vehicle_blue" con un enlace canónico "chassis" -->
+            <pose relative_to='world'>0 0 0 0 0 0</pose>
+            <!-- Posición y orientación del modelo relativo al mundo -->
+                
+            <link name='chassis'>
+                <!-- Define un enlace llamado "chassis" -->
+                <pose relative_to='__model__'>0.5 0 0.4 0 0 0</pose>
+                <!-- Posición y orientación del enlace relativo al modelo -->
+                <inertial>
+                    <!-- Propiedades inerciales del enlace -->
+                    <mass>1.14395</mass>
+                    <!-- Masa del enlace -->
+                    <inertia>
+                        <!-- Matriz de inercia -->
+                        <ixx>0.095329</ixx>
+                        <ixy>0</ixy>
+                        <ixz>0</ixz>
+                        <iyy>0.381317</iyy>
+                        <iyz>0</iyz>
+                        <izz>0.476646</izz>
+                    </inertia>
+                </inertial>
+                <visual name='visual'>
+                    <!-- Define una visualización llamada "visual" -->
+                    <geometry>
+                        <box>
+                            <!-- Define la geometría como una caja -->
+                            <size>2.0 1.0 0.5</size>
+                            <!-- Tamaño de la caja -->
+                        </box>
+                    </geometry>
+                    <material>
+                        <!-- Define el material de la caja -->
+                        <ambient>0.0 0.0 1.0 1</ambient>
+                        <!-- Color ambiental -->
+                        <diffuse>0.0 0.0 1.0 1</diffuse>
+                        <!-- Color difuso -->
+                        <specular>0.0 0.0 1.0 1</specular>
+                        <!-- Color especular -->
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <!-- Define una colisión llamada "collision" -->
+                    <geometry>
+                        <box>
+                            <!-- Define la geometría como una caja -->
+                            <size>2.0 1.0 0.5</size>
+                            <!-- Tamaño de la caja -->
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+
+            <link name='left_wheel'>
+                <!-- Define un enlace llamado "left_wheel" -->
+                <pose relative_to="chassis">-0.5 0.6 0 -1.5707 0 0</pose>
+                <!-- Posición y orientación del enlace relativo al chasis -->
+                <inertial>
+                    <!-- Propiedades inerciales del enlace -->
+                    <mass>1</mass>
+                    <!-- Masa del enlace -->
+                    <inertia>
+                        <!-- Matriz de inercia -->
+                        <ixx>0.043333</ixx>
+                        <ixy>0</ixy>
+                        <ixz>0</ixz>
+                        <iyy>0.043333</iyy>
+                        <iyz>0</iyz>
+                        <izz>0.08</izz>
+                    </inertia>
+                </inertial>
+                <visual name='visual'>
+                    <!-- Define una visualización llamada "visual" -->
+                    <geometry>
+                        <cylinder>
+                            <!-- Define la geometría como un cilindro -->
+                            <radius>0.4</radius>
+                            <!-- Radio del cilindro -->
+                            <length>0.2</length>
+                            <!-- Longitud del cilindro -->
+                        </cylinder>
+                    </geometry>
+                    <material>
+                        <!-- Define el material del cilindro -->
+                        <ambient>1.0 0.0 0.0 1</ambient>
+                        <!-- Color ambiental -->
+                        <diffuse>1.0 0.0 0.0 1</diffuse>
+                        <!-- Color difuso -->
+                        <specular>1.0 0.0 0.0 1</specular>
+                        <!-- Color especular -->
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <!-- Define una colisión llamada "collision" -->
+                    <geometry>
+                        <cylinder>
+                            <!-- Define la geometría como un cilindro -->
+                            <radius>0.4</radius>
+                            <!-- Radio del cilindro -->
+                            <length>0.2</length>
+                            <!-- Longitud del cilindro -->
+                        </cylinder>
+                    </geometry>
+                </collision>
+            </link>
+
+            <link name='right_wheel'>
+                <!-- Define un enlace llamado "right_wheel" -->
+                <pose relative_to="chassis">-0.5 -0.6 0 -1.5707 0 0</pose>
+                <!-- Posición y orientación del enlace relativo al chasis -->
+                <inertial>
+                    <!-- Propiedades inerciales del enlace -->
+                    <mass>1</mass>
+                    <!-- Masa del enlace -->
+                    <inertia>
+                        <!-- Matriz de inercia -->
+                        <ixx>0.043333</ixx>
+                        <ixy>0</ixy>
+                        <ixz>0</ixz>
+                        <iyy>0.043333</iyy>
+                        <iyz>0</iyz>
+                        <izz>0.08</izz>
+                    </inertia>
+                </inertial>
+                <visual name='visual'>
+                    <!-- Define una visualización llamada "visual" -->
+                    <geometry>
+                        <cylinder>
+                            <!-- Define la geometría como un cilindro -->
+                            <radius>0.4</radius>
+                            <!-- Radio del cilindro -->
+                            <length>0.2</length>
+                            <!-- Longitud del cilindro -->
+                        </cylinder>
+                    </geometry>
+                    <material>
+                        <!-- Define el material del cilindro -->
+                        <ambient>1.0 0.0 0.0 1</ambient>
+                        <!-- Color ambiental -->
+                        <diffuse>1.0 0.0 0.0 1</diffuse>
+                        <!-- Color difuso -->
+                        <specular>1.0 0.0 0.0 1</specular>
+                        <!-- Color especular -->
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <!-- Define una colisión llamada "collision" -->
+                    <geometry>
+                        <cylinder>
+                            <!-- Define la geometría como un cilindro -->
+                            <radius>0.4</radius>
+                            <!-- Radio del cilindro -->
+                            <length>0.2</length>
+                            <!-- Longitud del cilindro -->
+                        </cylinder>
+                    </geometry>
+                </collision>
+            </link>
+
+            <frame name="caster_frame" attached_to='chassis'>
+                <!-- Define un marco llamado "caster_frame" adjunto al chasis -->
+                <pose>0.8 0 -0.2 0 0 0</pose>
+                <!-- Posición y orientación del marco -->
+            </frame>
+
+            <link name='caster'>
+                <!-- Define un enlace llamado "caster" -->
+                <pose relative_to='caster_frame'/>
+                <!-- Posición y orientación del enlace relativo al marco del caster -->
+                <inertial>
+                    <!-- Propiedades inerciales del enlace -->
+                    <mass>1</mass>
+                    <!-- Masa del enlace -->
+                    <inertia>
+                        <!-- Matriz de inercia -->
+                        <ixx>0.016</ixx>
+                        <ixy>0</ixy>
+                        <ixz>0</ixz>
+                        <iyy>0.016</iyy>
+                        <iyz>0</iyz>
+                        <izz>0.016</izz>
+                    </inertia>
+                </inertial>
+                <visual name='visual'>
+                    <!-- Define una visualización llamada "visual" -->
+                    <geometry>
+                        <sphere>
+                            <!-- Define la geometría como una esfera -->
+                            <radius>0.2</radius>
+                            <!-- Radio de la esfera -->
+                        </sphere>
+                    </geometry>
+                    <material>
+                        <!-- Define el material de la esfera -->
+                        <ambient>0.0 1 0.0 1</ambient>
+                        <!-- Color ambiental -->
+                        <diffuse>0.0 1 0.0 1</diffuse>
+                        <!-- Color difuso -->
+                        <specular>0.0 1 0.0 1</specular>
+                        <!-- Color especular -->
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <!-- Define una colisión llamada "collision" -->
+                    <geometry>
+                        <sphere>
+                            <!-- Define la geometría como una esfera -->
+                            <radius>0.2</radius>
+                            <!-- Radio de la esfera -->
+                        </sphere>
+                    </geometry>
+                </collision>
+            </link>
+
+            <joint name='left_wheel_joint' type='revolute'>
+                <!-- Define una articulación llamada "left_wheel_joint" de tipo "revolute" -->
+                <pose relative_to='left_wheel'/>
+                <!-- Posición y orientación de la articulación relativa a la rueda izquierda -->
+                <parent>chassis</parent>
+                <!-- Enlace padre de la articulación -->
+                <child>left_wheel</child>
+                <!-- Enlace hijo de la articulación -->
+                <axis>
+                    <!-- Define el eje de la articulación -->
+                    <xyz expressed_in='__model__'>0 1 0</xyz>
+                    <!-- Dirección del eje en el marco del modelo -->
+                    <limit>
+                        <!-- Límites del movimiento de la articulación -->
+                        <lower>-1.79769e+308</lower>
+                        <!-- Límite inferior (infinito negativo) -->
+                        <upper>1.79769e+308</upper>
+                        <!-- Límite superior (infinito positivo) -->
+                    </limit>
+                </axis>
+            </joint>
+
+            <joint name='right_wheel_joint' type='revolute'>
+                <!-- Define una articulación llamada "right_wheel_joint" de tipo "revolute" -->
+                <pose relative_to='right_wheel'/>
+                <!-- Posición y orientación de la articulación relativa a la rueda derecha -->
+                <parent>chassis</parent>
+                <!-- Enlace padre de la articulación -->
+                <child>right_wheel</child>
+                <!-- Enlace hijo de la articulación -->
+                <axis>
+                    <!-- Define el eje de la articulación -->
+                    <xyz expressed_in='__model__'>0 1 0</xyz>
+                    <!-- Dirección del eje en el marco del modelo -->
+                    <limit>
+                        <!-- Límites del movimiento de la articulación -->
+                        <lower>-1.79769e+308</lower>
+                        <!-- Límite inferior (infinito negativo) -->
+                        <upper>1.79769e+308</upper>
+                        <!-- Límite superior (infinito positivo) -->
+                    </limit>
+                </axis>
+            </joint>
+
+            <joint name='caster_wheel' type='ball'>
+                <!-- Define una articulación llamada "caster_wheel" de tipo "ball" -->
+                <parent>chassis</parent>
+                <!-- Enlace padre de la articulación -->
+                <child>caster</child>
+                <!-- Enlace hijo de la articulación -->
+            </joint>
+
+            <plugin
+                filename="gz-sim-diff-drive-system"
+                name="gz::sim::systems::DiffDrive">
+                <left_joint>left_wheel_joint</left_joint>
+                <right_joint>right_wheel_joint</right_joint>
+                <wheel_separation>1.2</wheel_separation>
+                <wheel_radius>0.4</wheel_radius>
+                <odom_publish_frequency>1</odom_publish_frequency>
+                <topic>cmd_vel</topic>
+            </plugin>
+
+        </model>
+    </world>
+</sdf>
