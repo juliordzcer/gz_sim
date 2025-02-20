@@ -154,7 +154,7 @@ You can use the velocity controller and command linear velocity and yaw angular 
         <robotNamespace>parrot_bebop_2</robotNamespace>
         <jointName>propeller_fr_joint</jointName>
         <linkName>propeller_fr</linkName>
-        <turningDirection>ccw</turningDirection>
+        <turningDirection>cw</turningDirection>
         <timeConstantUp>0.0125</timeConstantUp>
         <timeConstantDown>0.025</timeConstantDown>
         <maxRotVelocity>800.0</maxRotVelocity>
@@ -174,7 +174,7 @@ You can use the velocity controller and command linear velocity and yaw angular 
         <robotNamespace>parrot_bebop_2</robotNamespace>
         <jointName>propeller_fl_joint</jointName>
         <linkName>propeller_fl</linkName>
-        <turningDirection>cw</turningDirection>
+        <turningDirection>ccw</turningDirection>
         <timeConstantUp>0.0125</timeConstantUp>
         <timeConstantDown>0.025</timeConstantDown>
         <maxRotVelocity>800.0</maxRotVelocity>
@@ -203,11 +203,11 @@ You can use the velocity controller and command linear velocity and yaw angular 
         attitude_gain: {x: 0.15, y: 0.15, z: 0.15}
         angular_rate_gain: {x: 0.03, y: 0.03, z: 0.05} -->
 
-
-        <velocityGain>2.7 2.7 2.7</velocityGain>
-        <attitudeGain>2 3 0.15</attitudeGain>
-        <angularRateGain>0.4 0.52 0.18</angularRateGain>
-        <maximumLinearAcceleration>2 2 2</maximumLinearAcceleration>
+        <positionGain>3 3 2</positionGain>
+        <velocityGain>2 2 2</velocityGain>
+        <attitudeGain>0.15 0.15 0.15</attitudeGain>
+        <angularRateGain>0.03 0.03 0.05</angularRateGain>
+        <!-- <maximumLinearAcceleration>2 2 2</maximumLinearAcceleration> -->
         <!-- pendiente -->
 
 
