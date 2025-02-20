@@ -1,44 +1,48 @@
 <?xml version="1.0" ?>
 <!--
-  Multicopter velocity controller demo
+  Demostración del controlador de velocidad de multicóptero
 
-You can use the velocity controller and command linear velocity and yaw angular velocity in the body frame of the vehicle
+  Puedes usar el controlador de velocidad y comandar la velocidad lineal y la velocidad angular de guiñada en el marco del cuerpo del vehículo
 
-  Send commands to the quadcopter to go straight up:
+  Envía comandos al cuadricóptero para que suba directamente:
 
     gz topic -t "/X3/gazebo/command/twist" -m gz.msgs.Twist -p "linear: {x:0 y: 0 z: 0.1} angular {z: 0}"
 
-  To hover
+  Para mantener la posición
 
     gz topic -t "/X3/gazebo/command/twist" -m gz.msgs.Twist -p " "
-
-
 -->
 
 <sdf version="1.6">
   <world name="multicopter">
+    <!-- Configuración de los parámetros de física del mundo -->
     <physics name="4ms" type="ignored">
       <max_step_size>0.004</max_step_size>
       <real_time_factor>1.0</real_time_factor>
     </physics>
+    <!-- Plugin del sistema de física -->
     <plugin
       filename="gz-sim-physics-system"
       name="gz::sim::systems::Physics">
     </plugin>
+    <!-- Plugin para transmitir la escena de la simulación -->
     <plugin
       filename="gz-sim-scene-broadcaster-system"
       name="gz::sim::systems::SceneBroadcaster">
     </plugin>
+    <!-- Plugin para manejar comandos del usuario -->
     <plugin
       filename="gz-sim-user-commands-system"
       name="gz::sim::systems::UserCommands">
     </plugin>
+    <!-- Plugin para manejar sensores en la simulación -->
     <plugin
       filename="gz-sim-sensors-system"
       name="gz::sim::systems::Sensors">
       <render_engine>ogre2</render_engine>
     </plugin>
 
+    <!-- Definición de una luz direccional llamada "sun" -->
     <light type="directional" name="sun">
       <cast_shadows>true</cast_shadows>
       <pose>0 0 10 0 0 0</pose>
@@ -53,6 +57,7 @@ You can use the velocity controller and command linear velocity and yaw angular 
       <direction>-0.5 0.1 -0.9</direction>
     </light>
 
+    <!-- Definición de un modelo de plano de suelo llamado "ground_plane" -->
     <model name="ground_plane">
       <static>true</static>
       <link name="link">
@@ -80,10 +85,12 @@ You can use the velocity controller and command linear velocity and yaw angular 
       </link>
     </model>
 
+    <!-- Inclusión de un modelo desde una URI específica -->
     <include>
       <uri>
         https://fuel.gazebosim.org/1.0/OpenRobotics/models/X3 UAV/4
       </uri>
+      <!-- Plugin para el modelo del motor del multicóptero -->
       <plugin
         filename="gz-sim-multicopter-motor-model-system"
         name="gz::sim::systems::MulticopterMotorModel">
@@ -104,6 +111,7 @@ You can use the velocity controller and command linear velocity and yaw angular 
         <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
         <motorType>velocity</motorType>
       </plugin>
+      <!-- Plugin para el modelo del motor del multicóptero -->
       <plugin
         filename="gz-sim-multicopter-motor-model-system"
         name="gz::sim::systems::MulticopterMotorModel">
@@ -124,6 +132,7 @@ You can use the velocity controller and command linear velocity and yaw angular 
         <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
         <motorType>velocity</motorType>
       </plugin>
+      <!-- Plugin para el modelo del motor del multicóptero -->
       <plugin
         filename="gz-sim-multicopter-motor-model-system"
         name="gz::sim::systems::MulticopterMotorModel">
@@ -144,6 +153,7 @@ You can use the velocity controller and command linear velocity and yaw angular 
         <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
         <motorType>velocity</motorType>
       </plugin>
+      <!-- Plugin para el modelo del motor del multicóptero -->
       <plugin
         filename="gz-sim-multicopter-motor-model-system"
         name="gz::sim::systems::MulticopterMotorModel">
@@ -164,6 +174,7 @@ You can use the velocity controller and command linear velocity and yaw angular 
         <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
         <motorType>velocity</motorType>
       </plugin>
+      <!-- Plugin para el control de velocidad del multicóptero -->
       <plugin
         filename="gz-sim-multicopter-control-system"
         name="gz::sim::systems::MulticopterVelocityControl">
@@ -176,33 +187,33 @@ You can use the velocity controller and command linear velocity and yaw angular 
         <angularRateGain>0.4 0.52 0.18</angularRateGain>
         <maximumLinearAcceleration>2 2 2</maximumLinearAcceleration>
 
-        <rotorConfiguration>
-          <rotor>
-            <jointName>X3/rotor_0_joint</jointName>
-            <forceConstant>8.54858e-06</forceConstant>
-            <momentConstant>0.016</momentConstant>
-            <direction>1</direction>
-          </rotor>
-          <rotor>
-            <jointName>X3/rotor_1_joint</jointName>
-            <forceConstant>8.54858e-06</forceConstant>
-            <momentConstant>0.016</momentConstant>
-            <direction>1</direction>
-          </rotor>
-          <rotor>
-            <jointName>X3/rotor_2_joint</jointName>
-            <forceConstant>8.54858e-06</forceConstant>
-            <momentConstant>0.016</momentConstant>
-            <direction>-1</direction>
-          </rotor>
-          <rotor>
-            <jointName>X3/rotor_3_joint</jointName>
-            <forceConstant>8.54858e-06</forceConstant>
-            <momentConstant>0.016</momentConstant>
-            <direction>-1</direction>
-          </rotor>
-        </rotorConfiguration>
+        <!-- Configuración de los rotores del multicóptero -->
+        <rotor>
+          <jointName>X3/rotor_0_joint</jointName>
+          <forceConstant>8.54858e-06</forceConstant>
+          <momentConstant>0.016</momentConstant>
+          <direction>1</direction>
+        </rotor>
+        <rotor>
+          <jointName>X3/rotor_1_joint</jointName>
+          <forceConstant>8.54858e-06</forceConstant>
+          <momentConstant>0.016</momentConstant>
+          <direction>1</direction>
+        </rotor>
+        <rotor>
+          <jointName>X3/rotor_2_joint</jointName>
+          <forceConstant>8.54858e-06</forceConstant>
+          <momentConstant>0.016</momentConstant>
+          <direction>-1</direction>
+        </rotor>
+        <rotor>
+          <jointName>X3/rotor_3_joint</jointName>
+          <forceConstant>8.54858e-06</forceConstant>
+          <momentConstant>0.016</momentConstant>
+          <direction>-1</direction>
+        </rotor>
       </plugin>
+      <!-- Plugin para publicar la odometría del sistema -->
       <plugin
         filename="gz-sim-odometry-publisher-system"
         name="gz::sim::systems::OdometryPublisher">
